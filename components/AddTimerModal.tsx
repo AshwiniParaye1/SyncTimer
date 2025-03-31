@@ -62,7 +62,11 @@ export function AddTimerModal({ visible, onClose, onAdd }) {
                 style={styles.input}
                 placeholder="Duration (seconds)"
                 value={duration}
-                onChangeText={setDuration}
+                onChangeText={(text) => {
+                  if (/^\d*$/.test(text)) {
+                    setDuration(text);
+                  }
+                }}
                 keyboardType="numeric"
                 placeholderTextColor="#999"
               />
