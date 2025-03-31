@@ -1,3 +1,5 @@
+//components/CompletionModal.tsx
+
 import { Check } from "lucide-react-native";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 

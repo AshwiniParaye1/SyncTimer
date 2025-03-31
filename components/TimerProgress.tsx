@@ -1,3 +1,5 @@
+//components/TimerProgress.tsx
+
 import { StyleSheet, View } from "react-native";
 
 export function TimerProgress({ current, total, completed }) {

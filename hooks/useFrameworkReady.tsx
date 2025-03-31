@@ -1,3 +1,5 @@
+//hooks/useFrameworkReady.tsx
+
 import { useEffect } from "react";
 
 declare global {
