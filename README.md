@@ -1,50 +1,106 @@
-# Welcome to your Expo app 👋
+# SyncTimer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A simple timer application built with React Native and Expo.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- Create and manage multiple timers.
+- Categorize timers for better organization.
+- Start, pause, and reset timers.
+- Displays a halfway alert
+- Persistent storage using AsyncStorage.
 
-   ```bash
-   npm install
-   ```
+## 🔧 Technologies Used
 
-2. Start the app
+- TypeScript
+- Expo
+- React Native
+- React Native Async Storage
 
-   ```bash
-    npx expo start
-   ```
+## 📦 Installation
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+git clone https://github.com/AshwiniParaye1/SyncTimer.git
+cd SyncTimer
+npm install
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This will open the Expo development tool in your browser.
 
-## Learn more
+### You can run the app by either:
 
-To learn more about developing your project with Expo, look at the following resources:
+- Scanning the QR code with the Expo Go app on your iOS or Android device.
+- Running it on an emulator (Android Studio or Xcode).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📂 Project Structure
 
-## Join the community
+```
+├── app.json
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── history.tsx
+│   │   ├── index.tsx
+│   ├── +not-found.tsx
+│   ├── _layout.tsx
+├── assets
+│   ├── fonts
+│   │   ├── SpaceMono-Regular.ttf
+│   ├── images
+├── components
+│   ├── AddTimerModal.tsx
+│   ├── CompletionModal.tsx
+│   ├── HalfwayAlert.tsx
+│   ├── TimerList.tsx
+│   ├── TimerProgress.tsx
+│   ├── __tests__
+│   │   ├── ThemedText-test.tsx
+│   │   ├── __snapshots__
+│   │   │   ├── ThemedText-test.tsx.snap
+│   ├── ui
+│   │   ├── IconSymbol.ios.tsx
+│   │   ├── IconSymbol.tsx
+│   │   ├── TabBarBackground.ios.tsx
+│   │   ├── TabBarBackground.tsx
+├── constants
+│   ├── Colors.ts
+├── hooks
+│   ├── useFrameworkReady.tsx
+│   ├── useTimerHistory.tsx
+│   ├── useTimers.tsx
+├── package.json
+├── scripts
+│   ├── reset-project.js
 
-Join our community of developers creating universal apps.
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Usage
+
+1.  **Adding a Timer:**
+
+- Tap the "+" button on the main screen.
+- Enter the timer name, duration (in seconds), and category.
+- Enable or disable the halfway alert.
+- Tap "Add Timer" to save the timer.
+
+2.  **Managing Timers:**
+
+- Timers are grouped by category.
+- Tap a category header to expand or collapse the timers within it.
+- Use the play, pause, and reset buttons to control individual timers.
+- The timer list will show you the remaining time
+
+## 🤝 Contribution
+
+We welcome contributions! Here's how you can contribute:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and commit them.
+4.  Push your changes to your fork.
+5.  Submit a pull request.
+
+## ❤️ Support
+
+Thank you for checking out SyncTimer! If you find it useful, consider giving it a star on GitHub!
