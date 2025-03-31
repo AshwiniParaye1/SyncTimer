@@ -8,7 +8,7 @@ import {
   Play,
   RotateCcw
 } from "lucide-react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { CompletionModal } from "./CompletionModal";
 import { HalfwayAlert } from "./HalfwayAlert";
@@ -30,6 +30,22 @@ export function TimerList({ timers, onUpdateTimer, onDeleteTimer }) {
     },
     {}
   );
+
+  // Use useEffect to check timer status instead of checking during render
+  useEffect(() => {
+    timers.forEach((timer) => {
+      if (timer.status === "running") {
+        if (timer.remainingTime <= 0) {
+          handleAction(timer.id, "complete");
+        } else if (
+          timer.halfwayAlert &&
+          timer.remainingTime === Math.floor(timer.duration / 2)
+        ) {
+          handleAction(timer.id, "halfway");
+        }
+      }
+    });
+  }, [timers]);
 
   const toggleCategory = (category) => {
     setExpandedCategories((current) => {
@@ -75,19 +91,6 @@ export function TimerList({ timers, onUpdateTimer, onDeleteTimer }) {
           setHalfwayTimer(timer);
         }
         break;
-    }
-  };
-
-  const checkTimerStatus = (timer) => {
-    if (timer.status === "running") {
-      if (timer.remainingTime <= 0) {
-        handleAction(timer.id, "complete");
-      } else if (
-        timer.halfwayAlert &&
-        timer.remainingTime === Math.floor(timer.duration / 2)
-      ) {
-        handleAction(timer.id, "halfway");
-      }
     }
   };
 
@@ -142,72 +145,69 @@ export function TimerList({ timers, onUpdateTimer, onDeleteTimer }) {
           </TouchableOpacity>
 
           {expandedCategories.has(category) &&
-            categoryTimers.map((timer) => {
-              checkTimerStatus(timer);
-              return (
-                <View
-                  key={timer.id}
-                  style={[
-                    styles.timerItem,
-                    timer.status === "completed" && styles.completedTimer
-                  ]}
-                >
-                  <View style={styles.timerInfo}>
-                    <Text
-                      style={[
-                        styles.timerName,
-                        timer.status === "completed" && styles.completedText
-                      ]}
-                    >
-                      {timer.name}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.timerTime,
-                        timer.status === "completed" && styles.completedText
-                      ]}
-                    >
-                      {Math.floor(timer.remainingTime / 60)}:
-                      {String(timer.remainingTime % 60).padStart(2, "0")}
-                    </Text>
-                  </View>
+            categoryTimers.map((timer) => (
+              <View
+                key={timer.id}
+                style={[
+                  styles.timerItem,
+                  timer.status === "completed" && styles.completedTimer
+                ]}
+              >
+                <View style={styles.timerInfo}>
+                  <Text
+                    style={[
+                      styles.timerName,
+                      timer.status === "completed" && styles.completedText
+                    ]}
+                  >
+                    {timer.name}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.timerTime,
+                      timer.status === "completed" && styles.completedText
+                    ]}
+                  >
+                    {Math.floor(timer.remainingTime / 60)}:
+                    {String(timer.remainingTime % 60).padStart(2, "0")}
+                  </Text>
+                </View>
 
-                  <TimerProgress
-                    current={timer.remainingTime}
-                    total={timer.duration}
-                    completed={timer.status === "completed"}
-                  />
+                <TimerProgress
+                  current={timer.remainingTime}
+                  total={timer.duration}
+                  completed={timer.status === "completed"}
+                />
 
-                  <View style={styles.timerActions}>
-                    {timer.status !== "completed" && (
-                      <>
-                        {timer.status !== "running" ? (
-                          <TouchableOpacity
-                            onPress={() => handleAction(timer.id, "start")}
-                            style={styles.actionButton}
-                          >
-                            <Play size={20} color="#007AFF" />
-                          </TouchableOpacity>
-                        ) : (
-                          <TouchableOpacity
-                            onPress={() => handleAction(timer.id, "pause")}
-                            style={styles.actionButton}
-                          >
-                            <Pause size={20} color="#007AFF" />
-                          </TouchableOpacity>
-                        )}
+                <View style={styles.timerActions}>
+                  {timer.status !== "completed" && (
+                    <>
+                      {timer.status !== "running" ? (
                         <TouchableOpacity
-                          onPress={() => handleAction(timer.id, "reset")}
+                          onPress={() => handleAction(timer.id, "start")}
                           style={styles.actionButton}
                         >
-                          <RotateCcw size={20} color="#007AFF" />
+                          <Play size={20} color="#007AFF" />
                         </TouchableOpacity>
-                      </>
-                    )}
-                  </View>
+                      ) : (
+                        <TouchableOpacity
+                          onPress={() => handleAction(timer.id, "pause")}
+                          style={styles.actionButton}
+                        >
+                          <Pause size={20} color="#007AFF" />
+                        </TouchableOpacity>
+                      )}
+                      <TouchableOpacity
+                        onPress={() => handleAction(timer.id, "reset")}
+                        style={styles.actionButton}
+                      >
+                        <RotateCcw size={20} color="#007AFF" />
+                      </TouchableOpacity>
+                    </>
+                  )}
                 </View>
-              );
-            })}
+              </View>
+            ))}
         </View>
       ))}
 
