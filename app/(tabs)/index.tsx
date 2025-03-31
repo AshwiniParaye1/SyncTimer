@@ -1,3 +1,5 @@
+//app/(tabs)/index.tsx
+
 import { AddTimerModal } from "@/components/AddTimerModal";
 import { TimerList } from "@/components/TimerList";
 import { useTimers } from "@/hooks/useTimers";
